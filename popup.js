@@ -55,8 +55,10 @@ function quartize(tabUrl) {
   var div = document.createElement('div')
   div.style.marginLeft = margin
   div.style.marginRight = margin
-  div.style.marginTop = margin/2
-
+  div.style.marginTop = margin / 2
+    
+  doc = "<style>p, a { font-family: sans-serif; } a { font-size: 14pt }</style>"
+  
   file_html = ""
 
   if (nb.files.length > 0) {
@@ -67,18 +69,22 @@ function quartize(tabUrl) {
 
   }
 
-  div.innerHTML = file_html + `<p>Quarto Document: <code>${nb.slug}.qmd</code></p>`
+  const blob = new Blob([ qmd ], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
 
-  var pre = document.createElement('pre');
-  pre.style.paddingLeft = "11pt"
-  pre.style.paddingRight = "11pt"
-  pre.style.paddingTop = "11pt"
-  pre.style.paddingBottom= "11pt"
-  pre.style.whiteSpace = "pre-wrap"
-  pre.style.border = "0.5px solid black"
-  pre.innerText = qmd
+  div.innerHTML = doc + file_html + `<p>Quarto Document: <a download="${nb.slug}.qmd" href="${url}"><code>${nb.slug}.qmd</code></a></p>` +
+    `<pre style="padding:11pt; white-space:pre-wrap;border:0.5px solid black"><code>${qmd}</code></pre>`
 
-  div.append(pre)
+  // var pre = document.createElement('pre');
+  // pre.style.paddingLeft = "11pt"
+  // pre.style.paddingRight = "11pt"
+  // pre.style.paddingTop = "11pt"
+  // pre.style.paddingBottom= "11pt"
+  // pre.style.whiteSpace = "pre-wrap"
+  // pre.style.border = "0.5px solid black"
+  // pre.innerText = qmd
+
+  // div.append(pre)
 
   document.getRootNode().appendChild(div)
 
