@@ -1,15 +1,26 @@
-let revealQuarto = document.getElementById("revealQuarto");
+let revealQuarto = document.getElementById("revealQuarto")
 
 revealQuarto.addEventListener("click", async () => {
 
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+
+  // chrome.scripting.executeScript({
+  //   target: {tabId: tab.id},
+  //   files: ['jszip.js'],
+  // },
+  //   () => { 
+  //   console.log("HERE")
+  //   var zip = new JSZip()
+  //   console.log(zip)
+  // })
 
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
     function: quartize,
     args: [ tab.url ]
-  });
-});
+  })
+
+})
 
 function quartize(tabUrl) {
 
@@ -69,25 +80,24 @@ function quartize(tabUrl) {
 
   }
 
+  var zip = new JSZip()
+  console.log(zip)
+
   const blob = new Blob([ qmd ], { type: 'text/markdown' });
   const url = URL.createObjectURL(blob);
 
-  div.innerHTML = doc + file_html + `<p>Quarto Document: <a download="${nb.slug}.qmd" href="${url}"><code>${nb.slug}.qmd</code></a></p>` +
-    `<pre style="padding:11pt; white-space:pre-wrap;border:0.5px solid black"><code>${qmd}</code></pre>`
+  div.innerHTML = doc + file_html +
+    `<p>Quarto Document: <a download="${nb.slug}.qmd" href="${url}"><code>${nb.slug}.qmd</code></a></p>`
 
-  // var pre = document.createElement('pre');
-  // pre.style.paddingLeft = "11pt"
-  // pre.style.paddingRight = "11pt"
-  // pre.style.paddingTop = "11pt"
-  // pre.style.paddingBottom= "11pt"
-  // pre.style.whiteSpace = "pre-wrap"
-  // pre.style.border = "0.5px solid black"
-  // pre.innerText = qmd
+  var pre = document.createElement('pre')
+  pre.innerText = qmd
+  pre.style.padding = "11pt"
+  pre.style.whiteSpace = "pre-wrap"
+  pre.style.border = "0.5px solid black"
 
-  // div.append(pre)
+  div.append(pre)
 
   document.getRootNode().appendChild(div)
 
-  // document.getRootNode().appendChild(pre)
   
 }

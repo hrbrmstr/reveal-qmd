@@ -1,13 +1,20 @@
 {
   "name": "Quartize",
   "description": "Reveal Observable Notebooks As Quarto QMD {ojs} Blocks",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "boB Rudis (@hrbrmstr)",
   "homepage_url": "https://github.com/hrbrmstr/reveal-qmd",
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
   },
+   "content_scripts": [
+   {
+     "matches": ["https://observablehq.com/@*"],
+     "css": [],
+     "js": ["jszip.js"]
+   }
+  ],
   "permissions": [ 
     "activeTab", 
     "scripting"
