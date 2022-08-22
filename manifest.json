@@ -1,7 +1,7 @@
 {
   "name": "Quartize",
   "description": "Reveal Observable Notebooks As Quarto QMD {ojs} Blocks",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "author": "boB Rudis (@hrbrmstr)",
   "homepage_url": "https://github.com/hrbrmstr/reveal-qmd",
   "manifest_version": 3,
@@ -11,10 +11,11 @@
    "content_scripts": [
    {
      "matches": ["https://observablehq.com/@*"],
-     "css": [],
+     "css": [
+     ],
      "js": [ 
        "FileSaver.js",
-       "jszip.js" 
+       "jszip.js"
     ]
    }
   ],
@@ -29,17 +30,17 @@
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "/images/get_started16.png",
-      "32": "/images/get_started32.png",
-      "48": "/images/get_started48.png",
-      "128": "/images/get_started128.png"
+      "16": "/images/quarto16.png",
+      "32": "/images/quarto32.png",
+      "48": "/images/quarto48.png",
+      "128": "/images/quarto128.png"
     }
   },
   "icons": {
-    "16": "/images/get_started16.png",
-    "32": "/images/get_started32.png",
-    "48": "/images/get_started48.png",
-    "128": "/images/get_started128.png"
+      "16": "/images/quarto16.png",
+      "32": "/images/quarto32.png",
+      "48": "/images/quarto48.png",
+      "128": "/images/quarto128.png"
   },
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'",

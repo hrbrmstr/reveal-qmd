@@ -31,8 +31,10 @@ function quartize(tabUrl) {
   title = nb.title
   authors = nb.authors.map(d => d.name).join(", ")
 
+  quoted_title = shquote(title)
+  
   qmd = "---\n"
-  qmd += `title: "${title}"\n`
+  qmd += `title: ${quoted_title}\n`
   qmd += `author: "${authors}"\n`
   qmd += `format: html\n`
   qmd += "echo: false\n"
@@ -106,7 +108,7 @@ function quartize(tabUrl) {
     })
 
     file_html = "<p>File Attachments:</p>\n" + "<ul>" + nb.files.map(file =>
-      `<li><a href="${file.download_url}" download="${file.name}">${file.name}</a></li>`
+      `<li><a href="${file.download_url}" download="${file.name}"><code>${file.name}</code></a></li>`
     ).join("\n") + "</ul>\n"
 
   } else {
@@ -126,13 +128,14 @@ function quartize(tabUrl) {
     `<p>Quarto Document: <a download="${nb.slug}.qmd" href="${qmd_url}"><code>${nb.slug}.qmd</code></a></p>`
 
   var pre = document.createElement('pre')
-  pre.innerText = qmd
   pre.style.padding = "11pt"
   pre.style.whiteSpace = "pre-wrap"
   pre.style.border = "0.5px solid black"
+  pre.innerText = qmd
 
   div.append(pre)
 
   document.getRootNode().appendChild(div)
+
   
 }
