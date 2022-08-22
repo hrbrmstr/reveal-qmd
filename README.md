@@ -16,6 +16,8 @@ Click the reveal button on any Observable page and it will be transformed into a
 
 Just refresh the page to get the original Observable Notebook back.
 
+NOTE: If the button fails to work, reload the Observable Notebook and try the operation again.
+
 ![](quartize-button.png)
 
 ![](quartized.png)
